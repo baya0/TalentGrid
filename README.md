@@ -68,17 +68,17 @@ The system parses CVs using AI-powered OCR, structures them with LLMs, embeds th
   <img src="screenshots/onboarding.jpg" alt="Onboarding" width="750" />
 </p>
 
-### CV Import & AI Ingestion (Figma Design)
+### CV Import & AI Ingestion 
 <p align="center">
   <img src="screenshots/import.jpg" alt="Multi-Source CV Ingestion" width="750" />
 </p>
 
-### Talent Search & Results (Figma Design)
+### Talent Search & Results 
 <p align="center">
   <img src="screenshots/search.jpg" alt="Search Results with AI Matching" width="750" />
 </p>
 
-### Candidate Profile (Figma Design)
+### Candidate Profile 
 <p align="center">
   <img src="screenshots/candidate_profile.jpg" alt="Candidate Profile with AI Insights" width="750" />
 </p>
