@@ -1,0 +1,161 @@
+/* TalentGrid - Main Stylesheet */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    @apply bg-background text-text antialiased;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-secondary;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  /* Primary button - Dark Green */
+  .btn-primary {
+    @apply px-6 py-3 bg-primary text-white font-semibold rounded-lg
+           hover:bg-primary-600 transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  /* Secondary button - Gold */
+  .btn-secondary {
+    @apply px-6 py-3 bg-secondary text-white font-semibold rounded-lg
+           hover:bg-secondary-600 transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2;
+  }
+
+  /* Outline button */
+  .btn-outline {
+    @apply px-6 py-3 border-2 border-primary text-primary font-semibold rounded-lg
+           hover:bg-primary hover:text-white transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  /* Card component */
+  .card {
+    @apply bg-white rounded-card shadow-card p-6;
+  }
+
+  .card-hover {
+    @apply hover:shadow-card-hover transition-shadow duration-200;
+  }
+
+  /* Input field styling */
+  .input-field {
+    @apply w-full px-4 py-3 border border-border rounded-lg
+           focus:border-secondary focus:ring-1 focus:ring-secondary
+           placeholder:text-text-muted;
+  }
+
+  /* Navbar (dark green from your designs) */
+  .navbar {
+    @apply bg-primary text-white;
+  }
+
+  /* Sidebar (dark green from your designs) */
+  .sidebar {
+    @apply bg-primary text-white;
+  }
+
+  /* Badge styles */
+  .badge-gold {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+           bg-secondary-100 text-secondary-700;
+  }
+
+  .badge-green {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+           bg-primary-100 text-primary;
+  }
+
+  .badge-match {
+    @apply inline-flex items-center px-2 py-1 rounded text-xs font-bold
+           bg-secondary text-white;
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    @apply h-2 bg-gray-200 rounded-full overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full bg-secondary transition-all duration-300;
+  }
+
+  /* Match percentage indicator */
+  .match-indicator {
+    @apply absolute top-2 right-2 px-2 py-1 rounded text-xs font-bold
+           bg-secondary text-white;
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  /* Text gradient (for special headings) */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-headline bg-clip-text text-transparent;
+  }
+
+  /* Scrollbar styling */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #CAA667 #F4F2E4;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #F4F2E4;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #CAA667;
+    border-radius: 3px;
+  }
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-gold {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(202, 166, 103, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(202, 166, 103, 0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s infinite;
+}

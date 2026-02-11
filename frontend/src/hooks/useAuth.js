@@ -1,0 +1,3 @@
+// src/hooks/useAuth.js
+// Re-export useAuth from AuthContext for convenience
+export { useAuth } from '@/contexts/AuthContext';
