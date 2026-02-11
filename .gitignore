@@ -39,3 +39,6 @@ uploads/
 # Database
 *.db
 *.sqlite3
+
+#chromaDB
+
