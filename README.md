@@ -25,19 +25,19 @@
 
 ---
 
-##  About
+## About
 
 **TalentGrid** is a full-stack, AI-powered talent sourcing platform built as a capstone project for the **AI Innovator Pathway** program. It solves a real-world recruitment challenge: matching talent to roles relies heavily on manual review and subjective judgment, making the process slow, inconsistent, and difficult to scale.
 
 TalentGrid automates the entire pipeline — from uploading a raw CV (PDF/DOCX) to enabling recruiters to search candidates using natural language queries like:
 
-> *"Find me a senior React developer with 5+ years who speaks Arabic"*
+> _"Find me a senior React developer with 5+ years who speaks Arabic"_
 
 The system parses CVs using AI-powered OCR, structures them with LLMs, embeds them into a vector database, and retrieves the best matches using a hybrid semantic + keyword search with cross-encoder re-ranking.
 
 ---
 
-##  Features
+## Features
 
 - ** AI-Powered CV Parsing** — Mistral OCR extracts text from any PDF (even scanned), then Groq/Gemini structures it into a consistent schema
 - ** Hybrid Search** — Combines semantic vector search with BM25 keyword matching using dynamic weights based on query type
@@ -54,39 +54,44 @@ The system parses CVs using AI-powered OCR, structures them with LLMs, embeds th
 ## 📸 Screenshots
 
 ### Login Page
+
 <p align="center">
   <img src="screenshots/login.jpg" alt="Login Page" width="750" />
 </p>
 
 ### Registration Page
+
 <p align="center">
   <img src="screenshots/register.jpg" alt="Registration Page" width="750" />
 </p>
 
 ### Onboarding
+
 <p align="center">
-  <img src="screenshots/onboarding.jpg" alt="Onboarding" width="750" />
+  <img src="screenshots/dashboard.jpg" alt="Onboarding" width="750" />
 </p>
 
-### CV Import & AI Ingestion 
+### CV Import & AI Ingestion
+
 <p align="center">
   <img src="screenshots/import.jpg" alt="Multi-Source CV Ingestion" width="750" />
 </p>
 
-### Talent Search & Results 
+### Talent Search & Results
+
 <p align="center">
   <img src="screenshots/search.jpg" alt="Search Results with AI Matching" width="750" />
 </p>
 
-### Candidate Profile 
+### Candidate Profile
+
 <p align="center">
   <img src="screenshots/candidate_profile.jpg" alt="Candidate Profile with AI Insights" width="750" />
 </p>
 
-
 ---
 
-##  AI Architecture
+## AI Architecture
 
 TalentGrid implements a **production-grade RAG (Retrieval-Augmented Generation)** pipeline with three major stages:
 
@@ -109,13 +114,13 @@ TalentGrid implements a **production-grade RAG (Retrieval-Augmented Generation)*
 
 ### Stage 1: CV Ingestion Pipeline
 
-| Step | Component | What It Does |
-|------|-----------|-------------|
-| Load | **Mistral OCR** | Extracts text from PDFs (even scanned/designed CVs) |
-| Parse | **Groq (Llama 3.3 70B)** → Gemini fallback | Structures raw text into JSON (name, skills, experience, etc.) |
-| Chunk | **Custom CVChunker** | Splits CV by semantic fields (profile, skills, experience, education) |
-| Embed | **all-mpnet-base-v2** | Converts each chunk into a 768-dimensional vector |
-| Store | **ChromaDB** | Persistent vector storage with metadata filtering |
+| Step  | Component                                  | What It Does                                                          |
+| ----- | ------------------------------------------ | --------------------------------------------------------------------- |
+| Load  | **Mistral OCR**                            | Extracts text from PDFs (even scanned/designed CVs)                   |
+| Parse | **Groq (Llama 3.3 70B)** → Gemini fallback | Structures raw text into JSON (name, skills, experience, etc.)        |
+| Chunk | **Custom CVChunker**                       | Splits CV by semantic fields (profile, skills, experience, education) |
+| Embed | **all-mpnet-base-v2**                      | Converts each chunk into a 768-dimensional vector                     |
+| Store | **ChromaDB**                               | Persistent vector storage with metadata filtering                     |
 
 ### Stage 2: Hybrid Retrieval
 
@@ -126,7 +131,7 @@ TalentGrid implements a **production-grade RAG (Retrieval-Augmented Generation)*
 ### Stage 3: Cross-Encoder Re-Ranking
 
 - **Cohere Rerank API** re-scores the top ~20 results using a cross-encoder model
-- Cross-encoders analyze query + document *together* for much higher precision
+- Cross-encoders analyze query + document _together_ for much higher precision
 - Graceful fallback to retrieval scores if Cohere is unavailable
 
 ---
@@ -134,46 +139,50 @@ TalentGrid implements a **production-grade RAG (Retrieval-Augmented Generation)*
 ## 🛠️ Tech Stack
 
 ### Frontend
-| Technology | Purpose |
-|-----------|---------|
-| React 18 | UI framework |
-| Vite | Build tool & dev server |
-| TailwindCSS | Utility-first styling |
-| React Router v6 | Client-side routing |
-| React Query | Server state management |
-| Recharts | Analytics charts |
-| Lucide React | Icon library |
-| Axios | HTTP client |
+
+| Technology      | Purpose                 |
+| --------------- | ----------------------- |
+| React 18        | UI framework            |
+| Vite            | Build tool & dev server |
+| TailwindCSS     | Utility-first styling   |
+| React Router v6 | Client-side routing     |
+| React Query     | Server state management |
+| Recharts        | Analytics charts        |
+| Lucide React    | Icon library            |
+| Axios           | HTTP client             |
 
 ### Backend
-| Technology | Purpose |
-|-----------|---------|
-| FastAPI | Python web framework |
-| SQLAlchemy | ORM for PostgreSQL |
-| Pydantic | Data validation |
-| JWT (PyJWT) | Authentication |
-| Uvicorn | ASGI server |
+
+| Technology  | Purpose              |
+| ----------- | -------------------- |
+| FastAPI     | Python web framework |
+| SQLAlchemy  | ORM for PostgreSQL   |
+| Pydantic    | Data validation      |
+| JWT (PyJWT) | Authentication       |
+| Uvicorn     | ASGI server          |
 
 ### AI / ML
-| Technology | Purpose |
-|-----------|---------|
-| Mistral OCR | PDF text extraction |
-| Groq (Llama 3.3 70B) | Primary LLM for CV parsing |
-| Google Gemini 2.0 Flash | Fallback LLM |
-| SentenceTransformers (all-mpnet-base-v2) | Text embeddings (768d) |
-| ChromaDB | Persistent vector store |
-| Cohere Rerank | Cross-encoder re-ranking |
+
+| Technology                               | Purpose                    |
+| ---------------------------------------- | -------------------------- |
+| Mistral OCR                              | PDF text extraction        |
+| Groq (Llama 3.3 70B)                     | Primary LLM for CV parsing |
+| Google Gemini 2.0 Flash                  | Fallback LLM               |
+| SentenceTransformers (all-mpnet-base-v2) | Text embeddings (768d)     |
+| ChromaDB                                 | Persistent vector store    |
+| Cohere Rerank                            | Cross-encoder re-ranking   |
 
 ### Infrastructure
-| Technology | Purpose |
-|-----------|---------|
-| PostgreSQL | Relational database |
-| ChromaDB | Vector database (persistent) |
-| Gmail OAuth2 | CV import from email |
+
+| Technology   | Purpose                      |
+| ------------ | ---------------------------- |
+| PostgreSQL   | Relational database          |
+| ChromaDB     | Vector database (persistent) |
+| Gmail OAuth2 | CV import from email         |
 
 ---
 
-##  Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -321,32 +330,32 @@ talentgrid/
 
 ## 🔌 API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/auth/register` | Create new account |
-| `POST` | `/api/auth/login` | Login & get JWT token |
-| `GET` | `/api/candidates/` | List all candidates |
-| `GET` | `/api/candidates/:id` | Get candidate details |
-| `POST` | `/api/import/upload` | Upload & parse a CV |
-| `POST` | `/api/search/` | AI-powered semantic search |
-| `GET` | `/api/analytics/dashboard` | Dashboard statistics |
-| `POST` | `/api/admin/reindex` | Re-index all candidates |
-| `GET` | `/docs` | Interactive API documentation (Swagger) |
+| Method | Endpoint                   | Description                             |
+| ------ | -------------------------- | --------------------------------------- |
+| `POST` | `/api/auth/register`       | Create new account                      |
+| `POST` | `/api/auth/login`          | Login & get JWT token                   |
+| `GET`  | `/api/candidates/`         | List all candidates                     |
+| `GET`  | `/api/candidates/:id`      | Get candidate details                   |
+| `POST` | `/api/import/upload`       | Upload & parse a CV                     |
+| `POST` | `/api/search/`             | AI-powered semantic search              |
+| `GET`  | `/api/analytics/dashboard` | Dashboard statistics                    |
+| `POST` | `/api/admin/reindex`       | Re-index all candidates                 |
+| `GET`  | `/docs`                    | Interactive API documentation (Swagger) |
 
 ---
 
 ## ⚙️ Environment Variables
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `DATABASE_URL` | ✅ | PostgreSQL connection string |
-| `SECRET_KEY` | ✅ | JWT signing key |
-| `MISTRAL_API_KEY` | ✅ | For CV OCR processing |
-| `GROQ_API_KEY` | ✅ | Primary LLM (free: 14,400 req/day) |
-| `GOOGLE_API_KEY` | ⚡ | Fallback LLM (Gemini) |
-| `COHERE_API_KEY` | ⚡ | Cross-encoder re-ranking |
-| `HF_TOKEN` | ❌ | HuggingFace (for private models) |
-| `LANGSMITH_API_KEY` | ❌ | Tracing & debugging |
+| Variable            | Required | Description                        |
+| ------------------- | -------- | ---------------------------------- |
+| `DATABASE_URL`      | ✅       | PostgreSQL connection string       |
+| `SECRET_KEY`        | ✅       | JWT signing key                    |
+| `MISTRAL_API_KEY`   | ✅       | For CV OCR processing              |
+| `GROQ_API_KEY`      | ✅       | Primary LLM (free: 14,400 req/day) |
+| `GOOGLE_API_KEY`    | ⚡       | Fallback LLM (Gemini)              |
+| `COHERE_API_KEY`    | ⚡       | Cross-encoder re-ranking           |
+| `HF_TOKEN`          | ❌       | HuggingFace (for private models)   |
+| `LANGSMITH_API_KEY` | ❌       | Tracing & debugging                |
 
 > ✅ = Required &nbsp; ⚡ = Recommended &nbsp; ❌ = Optional
 
@@ -356,19 +365,19 @@ talentgrid/
 
 **Team A — AI Innovator Pathway**
 
-| Name | Role |
-|------|------|
-| Amina AlHaffar ||
-| Salma Abou Shkair | |
-| Bayan Abo Razmeh |  |
-| Balsam Fater Deeb | |
-| Mohammad Mansour |  |
+| Name              | Role |
+| ----------------- | ---- |
+| Amina AlHaffar    |      |
+| Salma Abou Shkair |      |
+| Bayan Abo Razmeh  |      |
+| Balsam Fater Deeb |      |
+| Mohammad Mansour  |      |
 
 ---
 
 ## 📄 License
 
-This project was built as a capstone project for the AI Innovator Pathway program under subul impact outsourcing 
+This project was built as a capstone project for the AI Innovator Pathway program under subul impact outsourcing
 
 ---
 
