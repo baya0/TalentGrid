@@ -17,16 +17,22 @@ def _get_client():
     """Lazy load the Cohere client."""
     global _client, _available
 
-    if _available is None:
-        api_key = os.getenv("COHERE_API_KEY")
+    # Always re-check if previously unavailable (key might have been added)
+    if _available is None or _available is False:
+        from app.config import settings
+
+        api_key = settings.COHERE_API_KEY
         if not api_key:
-            logger.warning("COHERE_API_KEY not set. Cross-encoder ranking will be skipped.")
+            logger.warning(
+                "COHERE_API_KEY not set. Cross-encoder ranking will be skipped."
+            )
             _available = False
             return None
 
         try:
             import cohere
-            _client = cohere.Client(api_key)
+
+            _client = cohere.ClientV2(api_key)
             _available = True
             logger.info("Cohere client initialized successfully")
         except Exception as e:
@@ -84,9 +90,10 @@ class CrossEncoder:
         try:
             # Call the rerank endpoint
             response = self.client.rerank(
+                model="rerank-v3.5",
                 query=query,
                 documents=[candidate["text"] for candidate in candidates],
-                top_n=len(candidates)
+                top_n=len(candidates),
             )
 
             # Attach scores to candidates
@@ -95,7 +102,9 @@ class CrossEncoder:
                 candidates[idx]["score"] = result.relevance_score
 
             # Sort candidates by score in descending order
-            ranked_candidates = sorted(candidates, key=lambda x: x.get("score", 0), reverse=True)
+            ranked_candidates = sorted(
+                candidates, key=lambda x: x.get("score", 0), reverse=True
+            )
             return ranked_candidates
 
         except Exception as e:

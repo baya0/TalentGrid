@@ -65,10 +65,10 @@ The system parses CVs using AI-powered OCR, structures them with LLMs, embeds th
   <img src="screenshots/register.jpg" alt="Registration Page" width="750" />
 </p>
 
-### Onboarding
+### Dashboard
 
 <p align="center">
-  <img src="screenshots/dashboard.jpg" alt="Onboarding" width="750" />
+  <img src="screenshots/dashboard.jpg" alt="Dashboard" width="750" />
 </p>
 
 ### CV Import & AI Ingestion
